@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Santorini — A Private Guide</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0a1628;
+      --navy-mid:   #1a2d4a;
+      --navy-light: #0f1e35;
+      --warm-white: #faf8f4;
+      --gold:       #c9a96e;
+      --gold-light: #e8c98a;
+      --gold-dim:   rgba(201,169,110,0.28);
+      --text-body:  rgba(250,248,244,0.72);
+      --text-muted: #8a9bb0;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Lato', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--warm-white);
+      font-family: var(--font-sans);
+      font-weight: 300;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ─── FADE-IN ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* stagger siblings in grids */
+    .beach-grid .beach-card.fade-in:nth-child(2) { transition-delay: 0.1s; }
+    .beach-grid .beach-card.fade-in:nth-child(3) { transition-delay: 0.2s; }
+    .beach-grid .beach-card.fade-in:nth-child(4) { transition-delay: 0.3s; }
+    .beach-grid .beach-card.fade-in:nth-child(5) { transition-delay: 0.4s; }
+    .hotel-grid .hotel-card.fade-in:nth-child(2) { transition-delay: 0.1s; }
+    .hotel-grid .hotel-card.fade-in:nth-child(3) { transition-delay: 0.2s; }
+    .hotel-grid .hotel-card.fade-in:nth-child(4) { transition-delay: 0.1s; }
+    .hotel-grid .hotel-card.fade-in:nth-child(5) { transition-delay: 0.2s; }
+
+    /* ─── NAV ─── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 52px;
+      border-bottom: 1px solid transparent;
+      transition: background 0.45s ease, backdrop-filter 0.45s ease,
+                  padding 0.35s ease, border-color 0.45s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(10,22,40,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--gold-dim);
+      padding: 14px 52px;
+    }
+    .nav-brand {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--warm-white);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 0.69rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(250,248,244,0.68);
+      text-decoration: none;
+      transition: color 0.22s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(
+        168deg,
+        #0a1628  0%,
+        #101c38 10%,
+        #1c1840 22%,
+        #3a1850 34%,
+        #6e2850 46%,
+        #a84230 58%,
+        #c86820 70%,
+        #d98e38 80%,
+        #c9a96e 92%,
+        #e8c98a 100%
+      );
+    }
+
+    /* star-speckle overlay in upper portion */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 45% 0;
+      background:
+        radial-gradient(1.2px 1.2px at 12% 15%, rgba(255,255,255,0.65) 0%, transparent 100%),
+        radial-gradient(1px 1px   at 22% 6%,  rgba(255,255,255,0.45) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 38% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px   at 51% 9%,  rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 65% 4%,  rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px   at 77% 17%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 88% 8%,  rgba(255,255,255,0.55) 0%, transparent 100%),
+        radial-gradient(1px 1px   at 95% 22%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px   at  6% 28%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px   at 44% 32%, rgba(255,255,255,0.25) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 24px;
+    }
+    .hero-eyebrow {
+      font-size: 0.69rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(72px, 13vw, 132px);
+      font-weight: 300;
+      letter-spacing: 0.07em;
+      color: var(--warm-white);
+      line-height: 1;
+    }
+    .hero-divider {
+      width: 72px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 30px auto;
+      animation: shimmer 4s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%,100% { opacity: 0.55; transform: scaleX(0.7); }
+      50%      { opacity: 1;    transform: scaleX(1); }
+    }
+    .hero-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.05rem, 2.4vw, 1.45rem);
+      font-weight: 300;
+      color: rgba(250,248,244,0.8);
+      letter-spacing: 0.04em;
+    }
+
+    /* dome silhouettes at hero base */
+    .hero-domes {
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      height: 110px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-domes svg { width: 100%; height: 100%; }
+
+    /* ─── SHARED LAYOUT ─── */
+    .section { padding: 104px 0; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 52px; }
+
+    .section-label {
+      font-size: 0.67rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 300;
+      line-height: 1.12;
+      color: var(--warm-white);
+    }
+    .gold-rule {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 24px 0 40px;
+    }
+    .section-intro {
+      font-size: 1rem;
+      color: var(--text-body);
+      max-width: 620px;
+      margin-bottom: 56px;
+      line-height: 1.85;
+    }
+
+    /* ─── ATVs ─── */
+    #atvs { background: var(--navy-mid); }
+
+    .route-flow {
+      display: flex;
+      align-items: flex-start;
+      margin: 48px 0 52px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .route-stop {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .route-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 10px rgba(201,169,110,0.5);
+      margin-bottom: 14px;
+    }
+    .route-name {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      white-space: nowrap;
+    }
+    .route-line {
+      flex: 1;
+      height: 1px;
+      min-width: 48px;
+      background: linear-gradient(90deg, var(--gold), rgba(201,169,110,0.2));
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .tips-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 52px;
+      margin-bottom: 44px;
+    }
+    .tips-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 0.94rem;
+      color: var(--text-body);
+      line-height: 1.7;
+    }
+    .tips-list li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 0.55rem;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .warning-box {
+      border-left: 3px solid #c8622a;
+      background: rgba(192,96,42,0.1);
+      padding: 22px 28px;
+      border-radius: 0 4px 4px 0;
+    }
+    .warning-box strong {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e8952a;
+      margin-bottom: 8px;
+    }
+    .warning-box p {
+      font-size: 0.92rem;
+      color: rgba(250,248,244,0.82);
+      line-height: 1.75;
+    }
+
+    /* ─── BEACHES ─── */
+    #beaches { background: var(--navy); }
+
+    .beach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 22px;
+    }
+    .beach-card {
+      background: var(--navy-mid);
+      border-radius: 3px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: default;
+    }
+    .beach-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.38s ease;
+    }
+    .beach-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 28px 64px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,169,110,0.1);
+    }
+    .beach-card:hover::after { transform: scaleX(1); }
+
+    .beach-tag {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 18px;
+    }
+    .tag-volcanic { background: rgba(139,42,42,0.85);  color: #ffb8a0; }
+    .tag-swimming { background: rgba(26,107,107,0.85); color: #80e0d8; }
+    .tag-scenic   { background: rgba(42,58,139,0.85);  color: #a8b8ff; }
+
+    .beach-name {
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .beach-sub {
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .beach-desc {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.78;
+    }
+
+    /* ─── CLIFF JUMP ─── */
+    #cliff-jump {
+      background: var(--navy-light);
+      position: relative;
+      overflow: hidden;
+    }
+    #cliff-jump::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%;
+      height: 100%;
+      background: radial-gradient(ellipse at 80% 40%, rgba(201,169,110,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .brave-label {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .cliff-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 80px;
+      align-items: start;
+    }
+    .cliff-body p {
+      font-size: 0.98rem;
+      color: var(--text-body);
+      line-height: 1.88;
+      margin-bottom: 22px;
+    }
+    .cliff-steps {
+      list-style: none;
+      counter-reset: step;
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .cliff-steps li {
+      counter-increment: step;
+      display: flex;
+      gap: 22px;
+      font-size: 0.94rem;
+      color: var(--text-body);
+      line-height: 1.75;
+    }
+    .cliff-steps li::before {
+      content: counter(step, decimal-leading-zero);
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--gold-dim);
+      flex-shrink: 0;
+      line-height: 1.15;
+      width: 36px;
+    }
+    .cliff-callout {
+      border: 1px solid var(--gold-dim);
+      border-radius: 3px;
+      padding: 36px 30px;
+      position: sticky;
+      top: 100px;
+    }
+    .cliff-callout-title {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 22px;
+    }
+    .cliff-callout ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .cliff-callout ul li {
+      display: flex;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: rgba(250,248,244,0.78);
+      line-height: 1.65;
+    }
+    .cliff-callout ul li::before {
+      content: '◆';
+      color: var(--gold);
+      font-size: 0.48rem;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    /* ─── HOTELS ─── */
+    #hotels { background: var(--navy-mid); }
+
+    .hotel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .hotel-card {
+      background: var(--navy);
+      border-radius: 3px;
+      padding: 32px 28px;
+      border-top: 2px solid var(--gold-dim);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-top-color 0.35s ease;
+    }
+    .hotel-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 60px rgba(201,169,110,0.13);
+      border-top-color: var(--gold);
+    }
+    .hotel-location {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .hotel-name {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .hotel-desc {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.75;
+      margin-bottom: 22px;
+    }
+    .hotel-price { font-size: 0.9rem; letter-spacing: 0.05em; }
+    .hotel-price .active { color: var(--gold); }
+    .hotel-price .dim    { color: rgba(201,169,110,0.18); }
+
+    /* ─── RESTAURANTS ─── */
+    #restaurants { background: var(--navy); }
+
+    .restaurant-sub-title {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: 34px;
+    }
+    .restaurant-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-bottom: 56px;
+    }
+    .restaurant-item {
+      padding-left: 24px;
+      border-left: 1px solid var(--gold-dim);
+      transition: border-color 0.3s ease;
+    }
+    .restaurant-item:hover { border-left-color: var(--gold); }
+    .restaurant-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--warm-white);
+      margin-bottom: 4px;
+    }
+    .restaurant-location {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .restaurant-desc {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.78;
+    }
+    .restaurant-divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold-dim), transparent);
+      margin: 52px 0;
+    }
+
+    /* ─── TIPS ─── */
+    #tips { background: var(--navy-mid); }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px 68px;
+    }
+    .tip-item { display: flex; gap: 20px; }
+    .tip-icon {
+      color: var(--gold);
+      font-size: 0.75rem;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .tip-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+      margin-bottom: 7px;
+    }
+    .tip-body {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.78;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid var(--gold-dim);
+      text-align: center;
+      padding: 80px 52px;
+    }
+    .footer-rule {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 44px;
+    }
+    .footer-tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      font-weight: 300;
+      color: rgba(250,248,244,0.72);
+      line-height: 1.5;
+    }
+    .footer-sub {
+      margin-top: 28px;
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      .hotel-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      .cliff-grid { grid-template-columns: 1fr; gap: 48px; }
+      .cliff-callout { position: static; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      .section { padding: 72px 0; }
+      .hotel-grid { grid-template-columns: 1fr; }
+      .beach-grid { grid-template-columns: 1fr; }
+      .tips-grid  { grid-template-columns: 1fr; gap: 28px; }
+      .tips-list  { grid-template-columns: 1fr; }
+      #navbar         { padding: 16px 24px; }
+      #navbar.scrolled{ padding: 11px 24px; }
+      .nav-links { gap: 20px; }
+      .nav-links a { font-size: 0.62rem; letter-spacing: 0.14em; }
+    }
+    @media (max-width: 560px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-brand">Santorini</a>
+    <ul class="nav-links">
+      <li><a href="#atvs">ATVs</a></li>
+      <li><a href="#beaches">Beaches</a></li>
+      <li><a href="#cliff-jump">Cliff Jump</a></li>
+      <li><a href="#hotels">Hotels</a></li>
+      <li><a href="#restaurants">Eat</a></li>
+      <li><a href="#tips">Tips</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Greece &ensp;·&ensp; Cyclades &ensp;·&ensp; 4 Days / 3 Nights</p>
+      <h1 class="hero-title">Santorini</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-subtitle">A private guide to the island's finest moments</p>
+    </div>
+    <div class="hero-domes">
+      <svg viewBox="0 0 1440 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="140"  cy="115" rx="88"  ry="68" fill="rgba(250,248,244,0.045)"/>
+        <ellipse cx="300"  cy="120" rx="66"  ry="52" fill="rgba(250,248,244,0.03)"/>
+        <ellipse cx="470"  cy="112" rx="96"  ry="74" fill="rgba(250,248,244,0.045)"/>
+        <ellipse cx="680"  cy="106" rx="78"  ry="60" fill="rgba(250,248,244,0.035)"/>
+        <ellipse cx="880"  cy="116" rx="92"  ry="70" fill="rgba(250,248,244,0.045)"/>
+        <ellipse cx="1080" cy="110" rx="72"  ry="56" fill="rgba(250,248,244,0.03)"/>
+        <ellipse cx="1300" cy="118" rx="86"  ry="65" fill="rgba(250,248,244,0.04)"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── ATVs ── -->
+  <section id="atvs" class="section">
+    <div class="container">
+      <p class="section-label fade-in">02 — Getting Around</p>
+      <h2 class="section-title fade-in">Rent an ATV.<br>See everything.</h2>
+      <div class="gold-rule fade-in"></div>
+      <p class="section-intro fade-in">
+        Skip the taxis and tour buses. Renting an ATV is the single best decision you'll make
+        on this island. You'll reach beaches, villages, and viewpoints that most visitors never
+        find — on your own schedule, with the Aegean wind in your face.
+      </p>
+
+      <div class="route-flow fade-in">
+        <div class="route-stop">
+          <div class="route-dot"></div>
+          <div class="route-name">Fira</div>
+        </div>
+        <div class="route-line"></div>
+        <div class="route-stop">
+          <div class="route-dot"></div>
+          <div class="route-name">Oia</div>
+        </div>
+        <div class="route-line"></div>
+        <div class="route-stop">
+          <div class="route-dot"></div>
+          <div class="route-name">Akrotiri</div>
+        </div>
+        <div class="route-line"></div>
+        <div class="route-stop">
+          <div class="route-dot"></div>
+          <div class="route-name">Red Beach</div>
+        </div>
+        <div class="route-line"></div>
+        <div class="route-stop">
+          <div class="route-dot"></div>
+          <div class="route-name">Perissa</div>
+        </div>
+      </div>
+
+      <ul class="tips-list fade-in">
+        <li>Start before 9am — beat the heat and the tour groups, and you'll have the roads largely to yourself.</li>
+        <li>Bring cash. Most ATV rentals near Fira and Kamari are cash-only. Budget €35–50 per day.</li>
+        <li>Helmets are legally required and non-negotiable. The mountain roads have real exposure.</li>
+        <li>Fill the tank before leaving Fira. Petrol stations become sparse once you head south.</li>
+        <li>The full loop takes 4–5 hours at a relaxed pace with stops. Leave by 8am to finish before the midday heat.</li>
+        <li>Lock your ATV at every stop — petty theft is rare but not unheard of in peak season.</li>
+      </ul>
+
+      <div class="warning-box fade-in">
+        <strong>⚠ Caution — Roads into Oia</strong>
+        <p>
+          The final stretch into Oia narrows sharply. Pedestrians, donkeys, and delivery vehicles
+          share the lane — sometimes simultaneously. Slow to a crawl, keep left, and never attempt
+          to pass on blind corners. If the road feels too tight, park at the village outskirts and
+          walk in. It's worth it either way.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BEACHES ── -->
+  <section id="beaches" class="section">
+    <div class="container">
+      <p class="section-label fade-in">03 — The Beaches</p>
+      <h2 class="section-title fade-in">Black sand, red cliffs,<br>open water.</h2>
+      <div class="gold-rule fade-in"></div>
+      <p class="section-intro fade-in">
+        Santorini's beaches are unlike anything else in the Aegean. Volcanic geology gives you
+        black and red sands, dramatic cliff backdrops, and water with an almost unreal clarity.
+        Each beach has its own character — here's how to read them.
+      </p>
+
+      <div class="beach-grid">
+
+        <div class="beach-card fade-in">
+          <span class="beach-tag tag-volcanic">Volcanic</span>
+          <h3 class="beach-name">Red Beach</h3>
+          <p class="beach-sub">Akrotiri &ensp;·&ensp; 5 min from the ruins</p>
+          <p class="beach-desc">
+            Towering crimson cliffs plunge straight into electric-blue water. The approach — a
+            short 10-minute scramble along a cliff path — is half the spectacle. Arrive before
+            10am; after that the crowds arrive along with the vendors. Sunbeds for hire on the
+            left side.
+          </p>
+        </div>
+
+        <div class="beach-card fade-in">
+          <span class="beach-tag tag-swimming">Swimming</span>
+          <h3 class="beach-name">Perissa</h3>
+          <p class="beach-sub">Southeast coast &ensp;·&ensp; Long black-sand strip</p>
+          <p class="beach-desc">
+            The island's most accessible and social beach. Three kilometres of fine black volcanic
+            sand, a string of excellent tavernas right on the shore, and calm water make this the
+            best all-day beach for mixing food, swimming, and people-watching without feeling
+            overrun.
+          </p>
+        </div>
+
+        <div class="beach-card fade-in">
+          <span class="beach-tag tag-swimming">Swimming</span>
+          <h3 class="beach-name">Perivolos</h3>
+          <p class="beach-sub">South of Perissa &ensp;·&ensp; Beach club territory</p>
+          <p class="beach-desc">
+            Perissa's quieter, more polished neighbour. Sun loungers, cocktails, and ambient DJs
+            in the late afternoon attract a younger crowd looking for something curated. The
+            swimming is excellent and the whole vibe skews upscale without being inaccessible.
+          </p>
+        </div>
+
+        <div class="beach-card fade-in">
+          <span class="beach-tag tag-scenic">Scenic</span>
+          <h3 class="beach-name">Vlychada</h3>
+          <p class="beach-sub">South coast &ensp;·&ensp; Almost no tourists</p>
+          <p class="beach-desc">
+            Eroded white pumice cliffs carved into alien formations — one of the most
+            photographically surreal spots on the island. Almost nobody comes here. No vendors,
+            no umbrellas, no sound but the waves. Bring everything you need: water, shade,
+            snacks. The reward is genuine solitude.
+          </p>
+        </div>
+
+        <div class="beach-card fade-in">
+          <span class="beach-tag tag-scenic">Scenic</span>
+          <h3 class="beach-name">White Beach</h3>
+          <p class="beach-sub">Near Red Beach &ensp;·&ensp; Boat access recommended</p>
+          <p class="beach-desc">
+            Accessible only by water taxi from Red Beach (€5 each way, runs when seas allow) or
+            a demanding cliff scramble not recommended without experience. Pale cliffs, turquoise
+            water, rarely more than a dozen visitors. Worth the logistical effort entirely.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CLIFF JUMP ── -->
+  <section id="cliff-jump" class="section">
+    <div class="container">
+      <p class="section-label fade-in">04 — Amoudi Bay</p>
+      <p class="brave-label fade-in">For the brave.</p>
+      <h2 class="section-title fade-in">The cliff jump<br>below Oia.</h2>
+      <div class="gold-rule fade-in"></div>
+
+      <div class="cliff-grid fade-in">
+        <div class="cliff-body">
+          <p>
+            Two hundred steps below Oia village, Amoudi Bay sits tucked against the base of the
+            caldera cliffs — small, salt-scented, and almost entirely unknown to the tour-bus
+            crowd who congregate above for the sunset. It's one of Santorini's most genuinely
+            local experiences, and the jumping rocks make it one of the island's most exhilarating.
+          </p>
+          <p>
+            The jump is off a flat rock shelf on the right side of the bay, approximately 8–10
+            metres above the surface. Local kids do it in flip-flops. Scout your entry and exit
+            first — the volcanic rocks approaching the water are sharp — but the jump itself is
+            clean and straightforward. Come at golden hour, when the day-trippers have dispersed
+            and the cliffs turn amber above you.
+          </p>
+          <ol class="cliff-steps">
+            <li>Descend the 200 steps from Oia village — follow signs for Ammoudi. Allow 15 minutes down, 20 back up. It's steep.</li>
+            <li>Walk to the right side of the bay, past the fishing boats, to the flat rock platform at the water's edge.</li>
+            <li>Watch a few locals jump first to identify the clean water beneath. Confirm there's no boat traffic before you go.</li>
+            <li>Wear shoes you don't mind getting wet all the way to the edge — the approach rocks are sharp volcanic stone. Remove them just before the jump.</li>
+            <li>After: walk directly to Dimitris or Sunset Tavern on the waterfront. Order the grilled octopus. Have a cold Mythos. You've earned it.</li>
+          </ol>
+        </div>
+
+        <div class="cliff-callout">
+          <p class="cliff-callout-title">Practical Details</p>
+          <ul>
+            <li>Best time: 5–7pm — golden hour light, far fewer people</li>
+            <li>Height: approximately 8–10m off the main platform</li>
+            <li>Water: deep, clear, no hazards directly below the jump</li>
+            <li>Access: walk down from Oia village, follow signs to Ammoudi</li>
+            <li>Footwear: shoes that can get wet — the approach rocks are sharp</li>
+            <li>Current: mild, but watch for small boat movement in the bay</li>
+            <li>After: Sunset Tavern or Dimitris — both right on the water, fresh octopus</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOTELS ── -->
+  <section id="hotels" class="section">
+    <div class="container">
+      <p class="section-label fade-in">05 — Where to Stay</p>
+      <h2 class="section-title fade-in">The views that<br>justify everything.</h2>
+      <div class="gold-rule fade-in"></div>
+      <p class="section-intro fade-in">
+        Santorini's best hotels aren't just accommodation — they are the reason to come. Cave suites
+        carved into the caldera cliff, infinity pools suspended above the Aegean, breakfasts served
+        as the sun rises over the volcano. Position yourself in Oia or Imerovigli for caldera access.
+        For a 3-night stay, you need 3 months minimum lead time in peak season. This is not a guideline.
+      </p>
+
+      <div class="hotel-grid">
+
+        <div class="hotel-card fade-in">
+          <p class="hotel-location">Oia</p>
+          <h3 class="hotel-name">Canaves Oia Epitome</h3>
+          <p class="hotel-desc">
+            The pinnacle of Santorini luxury. Private infinity pools for every suite, white-glove
+            butler service, and a caldera-edge position that makes every morning feel cinematic.
+            Book six months out — it sells out immediately after rooms open.
+          </p>
+          <p class="hotel-price">
+            <span class="active">$$$$</span>
+          </p>
+        </div>
+
+        <div class="hotel-card fade-in">
+          <p class="hotel-location">Oia</p>
+          <h3 class="hotel-name">Andronis Luxury Suites</h3>
+          <p class="hotel-desc">
+            Cave suites hewn into the caldera cliffs with front-row volcano views. The breakfast
+            terrace — fresh pastries as the sun crests the crater rim — is one of the great hotel
+            experiences in the Aegean. Romantic, intimate, exceptional.
+          </p>
+          <p class="hotel-price">
+            <span class="active">$$$$</span>
+          </p>
+        </div>
+
+        <div class="hotel-card fade-in">
+          <p class="hotel-location">Imerovigli</p>
+          <h3 class="hotel-name">Grace Hotel Santorini</h3>
+          <p class="hotel-desc">
+            Perched at the highest point of the caldera ridge, Grace has arguably the finest single
+            view on the island — a 180-degree sweep from the volcano to open sea. The champagne
+            sunset terrace is legendary for entirely legitimate reasons.
+          </p>
+          <p class="hotel-price">
+            <span class="active">$$$</span><span class="dim">$</span>
+          </p>
+        </div>
+
+        <div class="hotel-card fade-in">
+          <p class="hotel-location">Oia</p>
+          <h3 class="hotel-name">Katikies Hotel</h3>
+          <p class="hotel-desc">
+            Iconic Santorini architecture executed perfectly: cascading white terraces, multiple
+            infinity pools descending the caldera cliff. The lowest pool — seemingly floating above
+            open sea — is a genuinely special place to spend an afternoon with nowhere else to be.
+          </p>
+          <p class="hotel-price">
+            <span class="active">$$$</span><span class="dim">$</span>
+          </p>
+        </div>
+
+        <div class="hotel-card fade-in">
+          <p class="hotel-location">Imerovigli</p>
+          <h3 class="hotel-name">Chromata Hotel</h3>
+          <p class="hotel-desc">
+            Smaller, more intimate, and significantly better value than its neighbours. Caldera
+            views from every room, a genuinely warm team, and a quieter atmosphere than the Oia
+            properties. The best choice if you want the views without the scene. Book the cave suite.
+          </p>
+          <p class="hotel-price">
+            <span class="active">$$$</span><span class="dim">$</span>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESTAURANTS ── -->
+  <section id="restaurants" class="section">
+    <div class="container">
+      <p class="section-label fade-in">06 — Where to Eat</p>
+      <h2 class="section-title fade-in">From tasting menus<br>to perfect souvlaki.</h2>
+      <div class="gold-rule fade-in"></div>
+
+      <h3 class="restaurant-sub-title fade-in">Fine Dining</h3>
+      <ul class="restaurant-list">
+        <li class="restaurant-item fade-in">
+          <p class="restaurant-name">Lycabettus</p>
+          <p class="restaurant-location">Oia &ensp;·&ensp; Open caldera terrace</p>
+          <p class="restaurant-desc">
+            The most celebrated table on the island. A tasting menu of elevated Cycladic cuisine
+            served on a terrace cut into the caldera cliff, with the volcano as an unobstructed
+            backdrop. Reserve weeks ahead — this is the meal you plan the trip around.
+          </p>
+        </li>
+        <li class="restaurant-item fade-in">
+          <p class="restaurant-name">Selene</p>
+          <p class="restaurant-location">Pyrgos village &ensp;·&ensp; Farm-to-table, Michelin recognition</p>
+          <p class="restaurant-desc">
+            Away from the caldera circus, in the hilltop village of Pyrgos, Selene serves
+            farm-to-table Greek cuisine with Michelin-level precision. Quieter, more intellectual,
+            and often more satisfying than the view-heavy restaurants. The Assyrtiko wine list is
+            outstanding.
+          </p>
+        </li>
+        <li class="restaurant-item fade-in">
+          <p class="restaurant-name">Metaxy Mas</p>
+          <p class="restaurant-location">Exo Gonia &ensp;·&ensp; The locals' choice</p>
+          <p class="restaurant-desc">
+            No caldera view, no Instagram presence — just exceptional Greek food at genuinely
+            reasonable prices, served to a room full of locals and those in the know. The rabbit
+            stifado and the tomato fritters are non-negotiable. Ask for the table on the small
+            terrace.
+          </p>
+        </li>
+      </ul>
+
+      <div class="restaurant-divider fade-in"></div>
+
+      <h3 class="restaurant-sub-title fade-in">Casual &amp; Local</h3>
+      <ul class="restaurant-list">
+        <li class="restaurant-item fade-in">
+          <p class="restaurant-name">Sunset Tavern at Amoudi Bay</p>
+          <p class="restaurant-location">Amoudi Bay &ensp;·&ensp; Post-cliff-jump ritual</p>
+          <p class="restaurant-desc">
+            Tables on the rocks, fishing boats moored three feet away, octopus drying on a line
+            above your head. This is exactly what a Greek waterfront taverna should be. The
+            grilled fish comes straight off the boat. Order the whole sea bream, a Greek salad,
+            and a cold Fix. Then order another.
+          </p>
+        </li>
+        <li class="restaurant-item fade-in">
+          <p class="restaurant-name">Lucky's Souvlaki</p>
+          <p class="restaurant-location">Fira &ensp;·&ensp; Best cheap eat on the island</p>
+          <p class="restaurant-desc">
+            There will be a queue. Join it. Lucky's pita wraps — stuffed with grilled pork,
+            tzatziki, tomato, and fries — are the best four euros you will spend in the Cyclades.
+            Find it on the main street in Fira. Open until late.
+          </p>
+        </li>
+        <li class="restaurant-item fade-in">
+          <p class="restaurant-name">Mama's House</p>
+          <p class="restaurant-location">Fira &ensp;·&ensp; Legendary breakfast</p>
+          <p class="restaurant-desc">
+            Santorini's most beloved breakfast institution. Arrive before 9am or face a wait. Greek
+            yogurt with local thyme honey, fresh orange juice, perfect eggs. Simple, honest, and
+            served with the warmth that makes you want to stay all morning. Do not skip this.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── TIPS ── -->
+  <section id="tips" class="section">
+    <div class="container">
+      <p class="section-label fade-in">07 — Practical Notes</p>
+      <h2 class="section-title fade-in">Everything you need<br>to know before you go.</h2>
+      <div class="gold-rule fade-in"></div>
+
+      <div class="tips-grid">
+        <div class="tip-item fade-in">
+          <div class="tip-icon">◆</div>
+          <div>
+            <p class="tip-label">Best time to visit</p>
+            <p class="tip-body">Late May–June or September. Golden light, a fraction of August's crowds, and prices 20–30% lower. July and August are extraordinary but relentlessly hot and crowded — plan accordingly or accept the trade-off.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-in">
+          <div class="tip-icon">◆</div>
+          <div>
+            <p class="tip-label">Getting there</p>
+            <p class="tip-body">Fly into Santorini Airport (JTR) — 15 minutes from Fira. Olympic Air and Aegean fly frequently from Athens. The overnight ferry from Piraeus (5–8 hours) is a surprisingly enjoyable way to arrive.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-in">
+          <div class="tip-icon">◆</div>
+          <div>
+            <p class="tip-label">Currency &amp; cash</p>
+            <p class="tip-body">Euro. Carry cash — ATV rentals, small tavernas, beach vendors, and water taxis are all cash-only. ATMs in Fira are reliable. Budget €50–80 per day in cash beyond accommodation.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-in">
+          <div class="tip-icon">◆</div>
+          <div>
+            <p class="tip-label">Sunsets — the honest advice</p>
+            <p class="tip-body">Oia sunset is iconic but the crowds are punishing — hundreds of people packed onto a narrow cliff path. Imerovigli offers the same 180° view with a fraction of the people. If you do Oia, arrive two hours early and bring a drink.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-in">
+          <div class="tip-icon">◆</div>
+          <div>
+            <p class="tip-label">Book well ahead</p>
+            <p class="tip-body">Top hotels and restaurants like Lycabettus require 3–6 months notice in peak season. There is no walk-in at Canaves or Andronis in August. Plan this trip the way you'd plan a wedding.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-in">
+          <div class="tip-icon">◆</div>
+          <div>
+            <p class="tip-label">4 days is the right amount</p>
+            <p class="tip-body">Three nights gives you one full ATV day, two beach days, the cliff jump, a fine-dining dinner, and both the Oia and Imerovigli sunsets. Fewer than 3 nights feels rushed. More than 5 and you've seen everything twice.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-rule"></div>
+    <p class="footer-tagline">
+      "Some islands you visit.<br>Santorini you remember."
+    </p>
+    <p class="footer-sub">Greece &ensp;·&ensp; Cyclades &ensp;·&ensp; 36°25′ N, 25°26′ E</p>
+  </footer>
+
+  <script>
+    // Sticky nav — becomes opaque once hero scrolls out of view
+    const nav  = document.getElementById('navbar');
+    const hero = document.getElementById('hero');
+    new IntersectionObserver(
+      ([e]) => nav.classList.toggle('scrolled', !e.isIntersecting),
+      { threshold: 0.05 }
+    ).observe(hero);
+
+    // Scroll fade-in for all .fade-in elements
+    const fadeObs = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          fadeObs.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+  </script>
+
+</body>
+</html>
