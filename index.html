@@ -45,7 +45,6 @@
     }
     .fade-in.visible { opacity: 1; transform: none; }
 
-    /* stagger siblings in grids */
     .beach-grid .beach-card.fade-in:nth-child(2) { transition-delay: 0.1s; }
     .beach-grid .beach-card.fade-in:nth-child(3) { transition-delay: 0.2s; }
     .beach-grid .beach-card.fade-in:nth-child(4) { transition-delay: 0.3s; }
@@ -105,37 +104,38 @@
       justify-content: center;
       text-align: center;
       overflow: hidden;
-      background: linear-gradient(
-        168deg,
-        #0a1628  0%,
-        #101c38 10%,
-        #1c1840 22%,
-        #3a1850 34%,
-        #6e2850 46%,
-        #a84230 58%,
-        #c86820 70%,
-        #d98e38 80%,
-        #c9a96e 92%,
-        #e8c98a 100%
-      );
+      background-image:
+        linear-gradient(
+          168deg,
+          rgba(10,22,40,0.82)  0%,
+          rgba(16,28,56,0.76) 12%,
+          rgba(28,24,64,0.7)  22%,
+          rgba(56,22,72,0.65) 34%,
+          rgba(100,36,68,0.6) 46%,
+          rgba(160,60,40,0.55) 58%,
+          rgba(196,100,28,0.5) 70%,
+          rgba(210,138,46,0.45) 80%,
+          rgba(201,169,110,0.42) 92%,
+          rgba(232,201,138,0.38) 100%
+        ),
+        url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1920&q=85');
+      background-size: cover;
+      background-position: center 40%;
     }
 
-    /* star-speckle overlay in upper portion */
+    /* star-speckle overlay */
     #hero::before {
       content: '';
       position: absolute;
-      inset: 0 0 45% 0;
+      inset: 0 0 50% 0;
       background:
-        radial-gradient(1.2px 1.2px at 12% 15%, rgba(255,255,255,0.65) 0%, transparent 100%),
-        radial-gradient(1px 1px   at 22% 6%,  rgba(255,255,255,0.45) 0%, transparent 100%),
-        radial-gradient(1.2px 1.2px at 38% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1px 1px   at 51% 9%,  rgba(255,255,255,0.35) 0%, transparent 100%),
-        radial-gradient(1.2px 1.2px at 65% 4%,  rgba(255,255,255,0.6) 0%, transparent 100%),
-        radial-gradient(1px 1px   at 77% 17%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1.2px 1.2px at 88% 8%,  rgba(255,255,255,0.55) 0%, transparent 100%),
-        radial-gradient(1px 1px   at 95% 22%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px   at  6% 28%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px   at 44% 32%, rgba(255,255,255,0.25) 0%, transparent 100%);
+        radial-gradient(1.2px 1.2px at 12% 15%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 22%  6%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 38% 20%, rgba(255,255,255,0.45) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 51%  9%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 65%  4%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 77% 17%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 88%  8%, rgba(255,255,255,0.45) 0%, transparent 100%);
       pointer-events: none;
     }
 
@@ -159,6 +159,7 @@
       letter-spacing: 0.07em;
       color: var(--warm-white);
       line-height: 1;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.4);
     }
     .hero-divider {
       width: 72px;
@@ -176,15 +177,15 @@
       font-style: italic;
       font-size: clamp(1.05rem, 2.4vw, 1.45rem);
       font-weight: 300;
-      color: rgba(250,248,244,0.8);
+      color: rgba(250,248,244,0.88);
       letter-spacing: 0.04em;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
     }
 
-    /* dome silhouettes at hero base */
+    /* dome silhouettes */
     .hero-domes {
       position: absolute;
-      bottom: -2px;
-      left: 0; right: 0;
+      bottom: -2px; left: 0; right: 0;
       height: 110px;
       pointer-events: none;
       z-index: 1;
@@ -225,7 +226,14 @@
     }
 
     /* ─── ATVs ─── */
-    #atvs { background: var(--navy-mid); }
+    #atvs {
+      position: relative;
+      background-image:
+        linear-gradient(to bottom, rgba(26,45,74,0.94) 0%, rgba(26,45,74,0.97) 100%),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center 60%;
+    }
 
     .route-flow {
       display: flex;
@@ -234,15 +242,9 @@
       overflow-x: auto;
       padding-bottom: 4px;
     }
-    .route-stop {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-    }
+    .route-stop { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
     .route-dot {
-      width: 13px;
-      height: 13px;
+      width: 13px; height: 13px;
       border-radius: 50%;
       background: var(--gold);
       box-shadow: 0 0 10px rgba(201,169,110,0.5);
@@ -250,18 +252,14 @@
     }
     .route-name {
       font-family: var(--font-serif);
-      font-size: 1rem;
-      font-weight: 400;
+      font-size: 1rem; font-weight: 400;
       color: var(--warm-white);
       white-space: nowrap;
     }
     .route-line {
-      flex: 1;
-      height: 1px;
-      min-width: 48px;
+      flex: 1; height: 1px; min-width: 48px;
       background: linear-gradient(90deg, var(--gold), rgba(201,169,110,0.2));
-      margin-top: 6px;
-      flex-shrink: 0;
+      margin-top: 6px; flex-shrink: 0;
     }
 
     .tips-list {
@@ -272,19 +270,12 @@
       margin-bottom: 44px;
     }
     .tips-list li {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      font-size: 0.94rem;
-      color: var(--text-body);
-      line-height: 1.7;
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 0.94rem; color: var(--text-body); line-height: 1.7;
     }
     .tips-list li::before {
-      content: '✦';
-      color: var(--gold);
-      font-size: 0.55rem;
-      margin-top: 7px;
-      flex-shrink: 0;
+      content: '✦'; color: var(--gold); font-size: 0.55rem;
+      margin-top: 7px; flex-shrink: 0;
     }
 
     .warning-box {
@@ -294,19 +285,11 @@
       border-radius: 0 4px 4px 0;
     }
     .warning-box strong {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #e8952a;
-      margin-bottom: 8px;
+      display: block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: #e8952a; margin-bottom: 8px;
     }
-    .warning-box p {
-      font-size: 0.92rem;
-      color: rgba(250,248,244,0.82);
-      line-height: 1.75;
-    }
+    .warning-box p { font-size: 0.92rem; color: rgba(250,248,244,0.82); line-height: 1.75; }
 
     /* ─── BEACHES ─── */
     #beaches { background: var(--navy); }
@@ -317,13 +300,18 @@
       gap: 22px;
     }
     .beach-card {
-      background: var(--navy-mid);
       border-radius: 3px;
       padding: 32px 28px;
       position: relative;
       overflow: hidden;
+      background-size: cover;
+      background-position: center;
       transition: transform 0.35s ease, box-shadow 0.35s ease;
       cursor: default;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
     .beach-card::after {
       content: '';
@@ -337,57 +325,46 @@
     }
     .beach-card:hover {
       transform: translateY(-7px);
-      box-shadow: 0 28px 64px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,169,110,0.1);
+      box-shadow: 0 28px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,169,110,0.15);
     }
     .beach-card:hover::after { transform: scaleX(1); }
 
     .beach-tag {
       display: inline-block;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 2px;
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px;
       margin-bottom: 18px;
     }
-    .tag-volcanic { background: rgba(139,42,42,0.85);  color: #ffb8a0; }
-    .tag-swimming { background: rgba(26,107,107,0.85); color: #80e0d8; }
-    .tag-scenic   { background: rgba(42,58,139,0.85);  color: #a8b8ff; }
+    .tag-volcanic { background: rgba(139,42,42,0.9);  color: #ffb8a0; }
+    .tag-swimming { background: rgba(26,107,107,0.9); color: #80e0d8; }
+    .tag-scenic   { background: rgba(42,58,139,0.9);  color: #a8b8ff; }
 
     .beach-name {
       font-family: var(--font-serif);
-      font-size: 1.65rem;
-      font-weight: 400;
+      font-size: 1.65rem; font-weight: 400;
       color: var(--warm-white);
-      margin-bottom: 8px;
-      line-height: 1.2;
+      margin-bottom: 8px; line-height: 1.2;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
     }
     .beach-sub {
-      font-size: 0.72rem;
-      color: var(--gold);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      font-size: 0.72rem; color: var(--gold);
+      letter-spacing: 0.14em; text-transform: uppercase;
       margin-bottom: 14px;
     }
     .beach-desc {
-      font-size: 0.9rem;
-      color: var(--text-body);
-      line-height: 1.78;
+      font-size: 0.9rem; color: rgba(250,248,244,0.82); line-height: 1.78;
     }
 
     /* ─── CLIFF JUMP ─── */
     #cliff-jump {
       background: var(--navy-light);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
     #cliff-jump::before {
       content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 50%;
-      height: 100%;
+      position: absolute; top: 0; right: 0;
+      width: 50%; height: 100%;
       background: radial-gradient(ellipse at 80% 40%, rgba(201,169,110,0.06) 0%, transparent 65%);
       pointer-events: none;
     }
@@ -396,75 +373,50 @@
       font-family: var(--font-serif);
       font-style: italic;
       font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-      color: var(--gold);
-      margin-bottom: 6px;
+      color: var(--gold); margin-bottom: 6px;
     }
     .cliff-grid {
       display: grid;
       grid-template-columns: 1fr 360px;
-      gap: 80px;
-      align-items: start;
+      gap: 80px; align-items: start;
     }
     .cliff-body p {
-      font-size: 0.98rem;
-      color: var(--text-body);
-      line-height: 1.88;
-      margin-bottom: 22px;
+      font-size: 0.98rem; color: var(--text-body);
+      line-height: 1.88; margin-bottom: 22px;
     }
     .cliff-steps {
-      list-style: none;
-      counter-reset: step;
+      list-style: none; counter-reset: step;
       margin-top: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
+      display: flex; flex-direction: column; gap: 22px;
     }
     .cliff-steps li {
       counter-increment: step;
-      display: flex;
-      gap: 22px;
-      font-size: 0.94rem;
-      color: var(--text-body);
-      line-height: 1.75;
+      display: flex; gap: 22px;
+      font-size: 0.94rem; color: var(--text-body); line-height: 1.75;
     }
     .cliff-steps li::before {
       content: counter(step, decimal-leading-zero);
-      font-family: var(--font-serif);
-      font-size: 1.5rem;
-      color: var(--gold-dim);
-      flex-shrink: 0;
-      line-height: 1.15;
-      width: 36px;
+      font-family: var(--font-serif); font-size: 1.5rem;
+      color: var(--gold-dim); flex-shrink: 0; line-height: 1.15; width: 36px;
     }
     .cliff-callout {
       border: 1px solid var(--gold-dim);
-      border-radius: 3px;
-      padding: 36px 30px;
-      position: sticky;
-      top: 100px;
+      border-radius: 3px; padding: 36px 30px;
+      position: sticky; top: 100px;
     }
     .cliff-callout-title {
-      font-size: 0.66rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 22px;
+      font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 22px;
     }
     .cliff-callout ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
     .cliff-callout ul li {
-      display: flex;
-      gap: 12px;
-      font-size: 0.88rem;
-      color: rgba(250,248,244,0.78);
-      line-height: 1.65;
+      display: flex; gap: 12px;
+      font-size: 0.88rem; color: rgba(250,248,244,0.78); line-height: 1.65;
     }
     .cliff-callout ul li::before {
-      content: '◆';
-      color: var(--gold);
-      font-size: 0.48rem;
-      margin-top: 7px;
-      flex-shrink: 0;
+      content: '◆'; color: var(--gold); font-size: 0.48rem;
+      margin-top: 7px; flex-shrink: 0;
     }
 
     /* ─── HOTELS ─── */
@@ -475,39 +427,71 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 22px;
     }
+
+    a.hotel-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
     .hotel-card {
       background: var(--navy);
       border-radius: 3px;
-      padding: 32px 28px;
       border-top: 2px solid var(--gold-dim);
+      overflow: hidden;
       transition: transform 0.35s ease, box-shadow 0.35s ease, border-top-color 0.35s ease;
     }
     .hotel-card:hover {
       transform: translateY(-7px);
-      box-shadow: 0 22px 60px rgba(201,169,110,0.13);
+      box-shadow: 0 22px 60px rgba(201,169,110,0.18);
       border-top-color: var(--gold);
     }
-    .hotel-location {
-      font-size: 0.65rem;
+    .hotel-card-img {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.45s ease;
+      overflow: hidden;
+    }
+    .hotel-card:hover .hotel-card-img {
+      transform: scale(1.05);
+    }
+    .hotel-card-body { padding: 26px 26px 24px; }
+
+    .hotel-book-hint {
+      display: inline-block;
+      font-size: 0.62rem;
       font-weight: 700;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 12px;
+      border: 1px solid var(--gold-dim);
+      padding: 3px 10px;
+      border-radius: 2px;
+      margin-bottom: 14px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .hotel-card:hover .hotel-book-hint {
+      background: rgba(201,169,110,0.12);
+      border-color: var(--gold);
+    }
+
+    .hotel-location {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 10px;
     }
     .hotel-name {
       font-family: var(--font-serif);
-      font-size: 1.45rem;
-      font-weight: 400;
-      color: var(--warm-white);
-      line-height: 1.2;
-      margin-bottom: 14px;
+      font-size: 1.4rem; font-weight: 400;
+      color: var(--warm-white); line-height: 1.2;
+      margin-bottom: 12px;
+      transition: color 0.25s ease;
     }
+    .hotel-card:hover .hotel-name { color: var(--gold-light); }
     .hotel-desc {
-      font-size: 0.88rem;
-      color: var(--text-body);
-      line-height: 1.75;
-      margin-bottom: 22px;
+      font-size: 0.86rem; color: var(--text-body);
+      line-height: 1.72; margin-bottom: 18px;
     }
     .hotel-price { font-size: 0.9rem; letter-spacing: 0.05em; }
     .hotel-price .active { color: var(--gold); }
@@ -518,42 +502,72 @@
 
     .restaurant-sub-title {
       font-family: var(--font-serif);
-      font-size: 1.75rem;
-      font-weight: 400;
-      color: var(--warm-white);
-      margin-bottom: 34px;
+      font-size: 1.75rem; font-weight: 400;
+      color: var(--warm-white); margin-bottom: 34px;
     }
     .restaurant-list {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      margin-bottom: 56px;
+      display: flex; flex-direction: column;
+      gap: 28px; margin-bottom: 56px;
     }
     .restaurant-item {
-      padding-left: 24px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .restaurant-img {
+      width: 200px; height: 150px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 3px;
+      flex-shrink: 0;
+      transition: transform 0.35s ease;
+    }
+    .restaurant-item:hover .restaurant-img {
+      transform: scale(1.03);
+    }
+    .restaurant-text {
+      padding-left: 4px;
       border-left: 1px solid var(--gold-dim);
+      padding-left: 24px;
       transition: border-color 0.3s ease;
     }
-    .restaurant-item:hover { border-left-color: var(--gold); }
+    .restaurant-item:hover .restaurant-text {
+      border-left-color: var(--gold);
+    }
+    .restaurant-name-link {
+      text-decoration: none;
+    }
     .restaurant-name {
       font-family: var(--font-serif);
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--warm-white);
-      margin-bottom: 4px;
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--warm-white); margin-bottom: 4px;
+      transition: color 0.25s ease;
+      display: inline-block;
     }
+    .restaurant-name-link:hover .restaurant-name { color: var(--gold); }
+    .restaurant-website {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold-dim);
+      padding-bottom: 1px;
+      transition: border-color 0.2s ease;
+      margin-bottom: 10px;
+    }
+    .restaurant-website:hover { border-bottom-color: var(--gold); }
     .restaurant-location {
       font-family: var(--font-serif);
       font-style: italic;
-      font-size: 0.88rem;
-      color: var(--gold);
-      margin-bottom: 8px;
+      font-size: 0.88rem; color: var(--gold); margin-bottom: 8px;
     }
     .restaurant-desc {
-      font-size: 0.9rem;
-      color: var(--text-body);
-      line-height: 1.78;
+      font-size: 0.9rem; color: var(--text-body); line-height: 1.78;
     }
     .restaurant-divider {
       height: 1px;
@@ -570,36 +584,22 @@
       gap: 36px 68px;
     }
     .tip-item { display: flex; gap: 20px; }
-    .tip-icon {
-      color: var(--gold);
-      font-size: 0.75rem;
-      margin-top: 3px;
-      flex-shrink: 0;
-    }
+    .tip-icon { color: var(--gold); font-size: 0.75rem; margin-top: 3px; flex-shrink: 0; }
     .tip-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--warm-white);
-      margin-bottom: 7px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--warm-white); margin-bottom: 7px;
     }
-    .tip-body {
-      font-size: 0.9rem;
-      color: var(--text-body);
-      line-height: 1.78;
-    }
+    .tip-body { font-size: 0.9rem; color: var(--text-body); line-height: 1.78; }
 
     /* ─── FOOTER ─── */
     footer {
       background: var(--navy);
       border-top: 1px solid var(--gold-dim);
-      text-align: center;
-      padding: 80px 52px;
+      text-align: center; padding: 80px 52px;
     }
     .footer-rule {
-      width: 80px;
-      height: 1px;
+      width: 80px; height: 1px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
       margin: 0 auto 44px;
     }
@@ -607,15 +607,11 @@
       font-family: var(--font-serif);
       font-style: italic;
       font-size: clamp(1.35rem, 3vw, 2rem);
-      font-weight: 300;
-      color: rgba(250,248,244,0.72);
-      line-height: 1.5;
+      font-weight: 300; color: rgba(250,248,244,0.72); line-height: 1.5;
     }
     .footer-sub {
-      margin-top: 28px;
-      font-size: 0.68rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
+      margin-top: 28px; font-size: 0.68rem;
+      letter-spacing: 0.24em; text-transform: uppercase;
       color: var(--text-muted);
     }
 
@@ -634,14 +630,14 @@
       .beach-grid { grid-template-columns: 1fr; }
       .tips-grid  { grid-template-columns: 1fr; gap: 28px; }
       .tips-list  { grid-template-columns: 1fr; }
-      #navbar         { padding: 16px 24px; }
-      #navbar.scrolled{ padding: 11px 24px; }
+      #navbar          { padding: 16px 24px; }
+      #navbar.scrolled { padding: 11px 24px; }
       .nav-links { gap: 20px; }
       .nav-links a { font-size: 0.62rem; letter-spacing: 0.14em; }
+      .restaurant-item { grid-template-columns: 1fr; }
+      .restaurant-img  { width: 100%; height: 200px; }
     }
-    @media (max-width: 560px) {
-      .nav-links { display: none; }
-    }
+    @media (max-width: 560px) { .nav-links { display: none; } }
   </style>
 </head>
 <body>
@@ -754,61 +750,58 @@
 
       <div class="beach-grid">
 
-        <div class="beach-card fade-in">
+        <div class="beach-card fade-in" style="background-image: linear-gradient(to top, rgba(10,22,40,0.97) 0%, rgba(10,22,40,0.72) 55%, rgba(10,22,40,0.38) 100%), url('https://images.unsplash.com/photo-1601621915373-5a3e8dc9c3e3?auto=format&fit=crop&w=800&q=80');">
           <span class="beach-tag tag-volcanic">Volcanic</span>
           <h3 class="beach-name">Red Beach</h3>
           <p class="beach-sub">Akrotiri &ensp;·&ensp; 5 min from the ruins</p>
           <p class="beach-desc">
             Towering crimson cliffs plunge straight into electric-blue water. The approach — a
             short 10-minute scramble along a cliff path — is half the spectacle. Arrive before
-            10am; after that the crowds arrive along with the vendors. Sunbeds for hire on the
-            left side.
+            10am; after that the crowds arrive. Sunbeds for hire on the left side.
           </p>
         </div>
 
-        <div class="beach-card fade-in">
+        <div class="beach-card fade-in" style="background-image: linear-gradient(to top, rgba(10,22,40,0.97) 0%, rgba(10,22,40,0.72) 55%, rgba(10,22,40,0.38) 100%), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80');">
           <span class="beach-tag tag-swimming">Swimming</span>
           <h3 class="beach-name">Perissa</h3>
           <p class="beach-sub">Southeast coast &ensp;·&ensp; Long black-sand strip</p>
           <p class="beach-desc">
-            The island's most accessible and social beach. Three kilometres of fine black volcanic
-            sand, a string of excellent tavernas right on the shore, and calm water make this the
-            best all-day beach for mixing food, swimming, and people-watching without feeling
-            overrun.
+            Three kilometres of fine black volcanic sand, excellent tavernas right on the shore,
+            and calm water make this the best all-day beach for mixing food, swimming, and
+            people-watching without feeling overrun.
           </p>
         </div>
 
-        <div class="beach-card fade-in">
+        <div class="beach-card fade-in" style="background-image: linear-gradient(to top, rgba(10,22,40,0.97) 0%, rgba(10,22,40,0.72) 55%, rgba(10,22,40,0.38) 100%), url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80');">
           <span class="beach-tag tag-swimming">Swimming</span>
           <h3 class="beach-name">Perivolos</h3>
           <p class="beach-sub">South of Perissa &ensp;·&ensp; Beach club territory</p>
           <p class="beach-desc">
             Perissa's quieter, more polished neighbour. Sun loungers, cocktails, and ambient DJs
-            in the late afternoon attract a younger crowd looking for something curated. The
-            swimming is excellent and the whole vibe skews upscale without being inaccessible.
+            in the late afternoon attract a crowd looking for something curated. The swimming is
+            excellent and the vibe skews upscale without being inaccessible.
           </p>
         </div>
 
-        <div class="beach-card fade-in">
+        <div class="beach-card fade-in" style="background-image: linear-gradient(to top, rgba(10,22,40,0.97) 0%, rgba(10,22,40,0.72) 55%, rgba(10,22,40,0.38) 100%), url('https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80');">
           <span class="beach-tag tag-scenic">Scenic</span>
           <h3 class="beach-name">Vlychada</h3>
           <p class="beach-sub">South coast &ensp;·&ensp; Almost no tourists</p>
           <p class="beach-desc">
             Eroded white pumice cliffs carved into alien formations — one of the most
             photographically surreal spots on the island. Almost nobody comes here. No vendors,
-            no umbrellas, no sound but the waves. Bring everything you need: water, shade,
-            snacks. The reward is genuine solitude.
+            no umbrellas, no sound but the waves. Bring everything. The reward is genuine solitude.
           </p>
         </div>
 
-        <div class="beach-card fade-in">
+        <div class="beach-card fade-in" style="background-image: linear-gradient(to top, rgba(10,22,40,0.97) 0%, rgba(10,22,40,0.72) 55%, rgba(10,22,40,0.38) 100%), url('https://images.unsplash.com/photo-1504512485720-7d83a16ee930?auto=format&fit=crop&w=800&q=80');">
           <span class="beach-tag tag-scenic">Scenic</span>
           <h3 class="beach-name">White Beach</h3>
           <p class="beach-sub">Near Red Beach &ensp;·&ensp; Boat access recommended</p>
           <p class="beach-desc">
-            Accessible only by water taxi from Red Beach (€5 each way, runs when seas allow) or
-            a demanding cliff scramble not recommended without experience. Pale cliffs, turquoise
-            water, rarely more than a dozen visitors. Worth the logistical effort entirely.
+            Accessible only by water taxi from Red Beach (€5 each way) or a demanding cliff
+            scramble. Pale cliffs, turquoise water, rarely more than a dozen visitors. Worth
+            the logistical effort entirely.
           </p>
         </div>
 
@@ -873,76 +866,86 @@
       <p class="section-intro fade-in">
         Santorini's best hotels aren't just accommodation — they are the reason to come. Cave suites
         carved into the caldera cliff, infinity pools suspended above the Aegean, breakfasts served
-        as the sun rises over the volcano. Position yourself in Oia or Imerovigli for caldera access.
-        For a 3-night stay, you need 3 months minimum lead time in peak season. This is not a guideline.
+        as the sun rises over the volcano. Click any card to book directly. Plan 3–6 months ahead
+        for peak season — this is not a guideline.
       </p>
 
       <div class="hotel-grid">
 
-        <div class="hotel-card fade-in">
-          <p class="hotel-location">Oia</p>
-          <h3 class="hotel-name">Canaves Oia Epitome</h3>
-          <p class="hotel-desc">
-            The pinnacle of Santorini luxury. Private infinity pools for every suite, white-glove
-            butler service, and a caldera-edge position that makes every morning feel cinematic.
-            Book six months out — it sells out immediately after rooms open.
-          </p>
-          <p class="hotel-price">
-            <span class="active">$$$$</span>
-          </p>
-        </div>
+        <a href="https://www.canavesoia.com/epitome/" target="_blank" rel="noopener" class="hotel-card fade-in">
+          <div class="hotel-card-img" style="background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80'); background-position: center 40%;"></div>
+          <div class="hotel-card-body">
+            <span class="hotel-book-hint">Book Direct →</span>
+            <p class="hotel-location">Oia</p>
+            <h3 class="hotel-name">Canaves Oia Epitome</h3>
+            <p class="hotel-desc">
+              The pinnacle of Santorini luxury. Private infinity pools for every suite, white-glove
+              butler service, and a caldera-edge position that makes every morning feel cinematic.
+              Book six months out — it sells out immediately.
+            </p>
+            <p class="hotel-price"><span class="active">$$$$</span></p>
+          </div>
+        </a>
 
-        <div class="hotel-card fade-in">
-          <p class="hotel-location">Oia</p>
-          <h3 class="hotel-name">Andronis Luxury Suites</h3>
-          <p class="hotel-desc">
-            Cave suites hewn into the caldera cliffs with front-row volcano views. The breakfast
-            terrace — fresh pastries as the sun crests the crater rim — is one of the great hotel
-            experiences in the Aegean. Romantic, intimate, exceptional.
-          </p>
-          <p class="hotel-price">
-            <span class="active">$$$$</span>
-          </p>
-        </div>
+        <a href="https://www.andronisgroup.com/andronis-luxury-suites/" target="_blank" rel="noopener" class="hotel-card fade-in">
+          <div class="hotel-card-img" style="background-image: url('https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&w=600&q=80');"></div>
+          <div class="hotel-card-body">
+            <span class="hotel-book-hint">Book Direct →</span>
+            <p class="hotel-location">Oia</p>
+            <h3 class="hotel-name">Andronis Luxury Suites</h3>
+            <p class="hotel-desc">
+              Cave suites hewn into the caldera cliffs with front-row volcano views. The breakfast
+              terrace — fresh pastries as the sun crests the crater rim — is one of the great hotel
+              experiences in the Aegean.
+            </p>
+            <p class="hotel-price"><span class="active">$$$$</span></p>
+          </div>
+        </a>
 
-        <div class="hotel-card fade-in">
-          <p class="hotel-location">Imerovigli</p>
-          <h3 class="hotel-name">Grace Hotel Santorini</h3>
-          <p class="hotel-desc">
-            Perched at the highest point of the caldera ridge, Grace has arguably the finest single
-            view on the island — a 180-degree sweep from the volcano to open sea. The champagne
-            sunset terrace is legendary for entirely legitimate reasons.
-          </p>
-          <p class="hotel-price">
-            <span class="active">$$$</span><span class="dim">$</span>
-          </p>
-        </div>
+        <a href="https://www.gracehotels.com/santorini/" target="_blank" rel="noopener" class="hotel-card fade-in">
+          <div class="hotel-card-img" style="background-image: url('https://images.unsplash.com/photo-1555993539-1732b0258235?auto=format&fit=crop&w=600&q=80'); background-position: center 30%;"></div>
+          <div class="hotel-card-body">
+            <span class="hotel-book-hint">Book Direct →</span>
+            <p class="hotel-location">Imerovigli</p>
+            <h3 class="hotel-name">Grace Hotel Santorini</h3>
+            <p class="hotel-desc">
+              Perched at the highest point of the caldera ridge, Grace has arguably the finest
+              single view on the island — a 180-degree sweep from the volcano to open sea. The
+              champagne sunset terrace is legendary.
+            </p>
+            <p class="hotel-price"><span class="active">$$$</span><span class="dim">$</span></p>
+          </div>
+        </a>
 
-        <div class="hotel-card fade-in">
-          <p class="hotel-location">Oia</p>
-          <h3 class="hotel-name">Katikies Hotel</h3>
-          <p class="hotel-desc">
-            Iconic Santorini architecture executed perfectly: cascading white terraces, multiple
-            infinity pools descending the caldera cliff. The lowest pool — seemingly floating above
-            open sea — is a genuinely special place to spend an afternoon with nowhere else to be.
-          </p>
-          <p class="hotel-price">
-            <span class="active">$$$</span><span class="dim">$</span>
-          </p>
-        </div>
+        <a href="https://www.katikies.com/" target="_blank" rel="noopener" class="hotel-card fade-in">
+          <div class="hotel-card-img" style="background-image: url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=80'); background-position: center 70%;"></div>
+          <div class="hotel-card-body">
+            <span class="hotel-book-hint">Book Direct →</span>
+            <p class="hotel-location">Oia</p>
+            <h3 class="hotel-name">Katikies Hotel</h3>
+            <p class="hotel-desc">
+              Iconic Santorini architecture executed perfectly: cascading white terraces, multiple
+              infinity pools descending the caldera cliff. The lowest pool — seemingly floating
+              above open sea — is a genuinely special place to spend an afternoon.
+            </p>
+            <p class="hotel-price"><span class="active">$$$</span><span class="dim">$</span></p>
+          </div>
+        </a>
 
-        <div class="hotel-card fade-in">
-          <p class="hotel-location">Imerovigli</p>
-          <h3 class="hotel-name">Chromata Hotel</h3>
-          <p class="hotel-desc">
-            Smaller, more intimate, and significantly better value than its neighbours. Caldera
-            views from every room, a genuinely warm team, and a quieter atmosphere than the Oia
-            properties. The best choice if you want the views without the scene. Book the cave suite.
-          </p>
-          <p class="hotel-price">
-            <span class="active">$$$</span><span class="dim">$</span>
-          </p>
-        </div>
+        <a href="https://www.chromata.com/" target="_blank" rel="noopener" class="hotel-card fade-in">
+          <div class="hotel-card-img" style="background-image: url('https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80'); background-position: center 40%;"></div>
+          <div class="hotel-card-body">
+            <span class="hotel-book-hint">Book Direct →</span>
+            <p class="hotel-location">Imerovigli</p>
+            <h3 class="hotel-name">Chromata Hotel</h3>
+            <p class="hotel-desc">
+              Smaller, more intimate, and significantly better value than its neighbours. Caldera
+              views from every room, a genuinely warm team, and a quieter atmosphere. The best
+              choice if you want the views without the scene. Book the cave suite.
+            </p>
+            <p class="hotel-price"><span class="active">$$$</span><span class="dim">$</span></p>
+          </div>
+        </a>
 
       </div>
     </div>
@@ -957,69 +960,111 @@
 
       <h3 class="restaurant-sub-title fade-in">Fine Dining</h3>
       <ul class="restaurant-list">
+
         <li class="restaurant-item fade-in">
-          <p class="restaurant-name">Lycabettus</p>
-          <p class="restaurant-location">Oia &ensp;·&ensp; Open caldera terrace</p>
-          <p class="restaurant-desc">
-            The most celebrated table on the island. A tasting menu of elevated Cycladic cuisine
-            served on a terrace cut into the caldera cliff, with the volcano as an unobstructed
-            backdrop. Reserve weeks ahead — this is the meal you plan the trip around.
-          </p>
+          <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=400&q=80');"></div>
+          <div class="restaurant-text">
+            <a href="https://lycabettus.com/" target="_blank" rel="noopener" class="restaurant-name-link">
+              <p class="restaurant-name">Lycabettus</p>
+            </a>
+            <a href="https://lycabettus.com/" target="_blank" rel="noopener" class="restaurant-website">Visit website ↗</a>
+            <p class="restaurant-location">Oia &ensp;·&ensp; Open caldera terrace</p>
+            <p class="restaurant-desc">
+              The most celebrated table on the island. A tasting menu of elevated Cycladic cuisine
+              served on a terrace cut into the caldera cliff, with the volcano as an unobstructed
+              backdrop. Reserve weeks ahead — this is the meal you plan the trip around.
+            </p>
+          </div>
         </li>
+
         <li class="restaurant-item fade-in">
-          <p class="restaurant-name">Selene</p>
-          <p class="restaurant-location">Pyrgos village &ensp;·&ensp; Farm-to-table, Michelin recognition</p>
-          <p class="restaurant-desc">
-            Away from the caldera circus, in the hilltop village of Pyrgos, Selene serves
-            farm-to-table Greek cuisine with Michelin-level precision. Quieter, more intellectual,
-            and often more satisfying than the view-heavy restaurants. The Assyrtiko wine list is
-            outstanding.
-          </p>
+          <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&w=400&q=80');"></div>
+          <div class="restaurant-text">
+            <a href="https://selene.gr/" target="_blank" rel="noopener" class="restaurant-name-link">
+              <p class="restaurant-name">Selene</p>
+            </a>
+            <a href="https://selene.gr/" target="_blank" rel="noopener" class="restaurant-website">Visit website ↗</a>
+            <p class="restaurant-location">Pyrgos village &ensp;·&ensp; Farm-to-table, Michelin recognition</p>
+            <p class="restaurant-desc">
+              Away from the caldera circus, in the hilltop village of Pyrgos, Selene serves
+              farm-to-table Greek cuisine with Michelin-level precision. Quieter, more intellectual,
+              and often more satisfying than the view-heavy restaurants. The Assyrtiko wine list
+              is outstanding.
+            </p>
+          </div>
         </li>
+
         <li class="restaurant-item fade-in">
-          <p class="restaurant-name">Metaxy Mas</p>
-          <p class="restaurant-location">Exo Gonia &ensp;·&ensp; The locals' choice</p>
-          <p class="restaurant-desc">
-            No caldera view, no Instagram presence — just exceptional Greek food at genuinely
-            reasonable prices, served to a room full of locals and those in the know. The rabbit
-            stifado and the tomato fritters are non-negotiable. Ask for the table on the small
-            terrace.
-          </p>
+          <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1504512485720-7d83a16ee930?auto=format&fit=crop&w=400&q=80');"></div>
+          <div class="restaurant-text">
+            <a href="https://www.tripadvisor.com/Restaurant_Review-g580184-d1109101-Reviews-Metaxy_Mas-Santorini_South_Aegean.html" target="_blank" rel="noopener" class="restaurant-name-link">
+              <p class="restaurant-name">Metaxy Mas</p>
+            </a>
+            <a href="https://www.tripadvisor.com/Restaurant_Review-g580184-d1109101-Reviews-Metaxy_Mas-Santorini_South_Aegean.html" target="_blank" rel="noopener" class="restaurant-website">TripAdvisor ↗</a>
+            <p class="restaurant-location">Exo Gonia &ensp;·&ensp; The locals' choice</p>
+            <p class="restaurant-desc">
+              No caldera view, no Instagram presence — just exceptional Greek food at genuinely
+              reasonable prices, served to a room full of locals and those in the know. The rabbit
+              stifado and tomato fritters are non-negotiable. Ask for the table on the small terrace.
+            </p>
+          </div>
         </li>
+
       </ul>
 
       <div class="restaurant-divider fade-in"></div>
 
       <h3 class="restaurant-sub-title fade-in">Casual &amp; Local</h3>
       <ul class="restaurant-list">
+
         <li class="restaurant-item fade-in">
-          <p class="restaurant-name">Sunset Tavern at Amoudi Bay</p>
-          <p class="restaurant-location">Amoudi Bay &ensp;·&ensp; Post-cliff-jump ritual</p>
-          <p class="restaurant-desc">
-            Tables on the rocks, fishing boats moored three feet away, octopus drying on a line
-            above your head. This is exactly what a Greek waterfront taverna should be. The
-            grilled fish comes straight off the boat. Order the whole sea bream, a Greek salad,
-            and a cold Fix. Then order another.
-          </p>
+          <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1601621915373-5a3e8dc9c3e3?auto=format&fit=crop&w=400&q=80');"></div>
+          <div class="restaurant-text">
+            <a href="https://maps.google.com/?q=Sunset+Tavern+Amoudi+Bay+Santorini+Greece" target="_blank" rel="noopener" class="restaurant-name-link">
+              <p class="restaurant-name">Sunset Tavern at Amoudi Bay</p>
+            </a>
+            <a href="https://maps.google.com/?q=Sunset+Tavern+Amoudi+Bay+Santorini+Greece" target="_blank" rel="noopener" class="restaurant-website">Find on Maps ↗</a>
+            <p class="restaurant-location">Amoudi Bay &ensp;·&ensp; Post-cliff-jump ritual</p>
+            <p class="restaurant-desc">
+              Tables on the rocks, fishing boats moored three feet away, octopus drying on a line
+              above your head. The grilled fish comes straight off the boat. Order the whole sea
+              bream, a Greek salad, and a cold Fix. Then order another.
+            </p>
+          </div>
         </li>
+
         <li class="restaurant-item fade-in">
-          <p class="restaurant-name">Lucky's Souvlaki</p>
-          <p class="restaurant-location">Fira &ensp;·&ensp; Best cheap eat on the island</p>
-          <p class="restaurant-desc">
-            There will be a queue. Join it. Lucky's pita wraps — stuffed with grilled pork,
-            tzatziki, tomato, and fries — are the best four euros you will spend in the Cyclades.
-            Find it on the main street in Fira. Open until late.
-          </p>
+          <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1555993539-1732b0258235?auto=format&fit=crop&w=400&q=80');"></div>
+          <div class="restaurant-text">
+            <a href="https://maps.google.com/?q=Lucky%27s+Souvlaki+Fira+Santorini+Greece" target="_blank" rel="noopener" class="restaurant-name-link">
+              <p class="restaurant-name">Lucky's Souvlaki</p>
+            </a>
+            <a href="https://maps.google.com/?q=Lucky%27s+Souvlaki+Fira+Santorini+Greece" target="_blank" rel="noopener" class="restaurant-website">Find on Maps ↗</a>
+            <p class="restaurant-location">Fira &ensp;·&ensp; Best cheap eat on the island</p>
+            <p class="restaurant-desc">
+              There will be a queue. Join it. Lucky's pita wraps — stuffed with grilled pork,
+              tzatziki, tomato, and fries — are the best four euros you will spend in the Cyclades.
+              Find it on the main street in Fira. Open until late.
+            </p>
+          </div>
         </li>
+
         <li class="restaurant-item fade-in">
-          <p class="restaurant-name">Mama's House</p>
-          <p class="restaurant-location">Fira &ensp;·&ensp; Legendary breakfast</p>
-          <p class="restaurant-desc">
-            Santorini's most beloved breakfast institution. Arrive before 9am or face a wait. Greek
-            yogurt with local thyme honey, fresh orange juice, perfect eggs. Simple, honest, and
-            served with the warmth that makes you want to stay all morning. Do not skip this.
-          </p>
+          <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=400&q=80');"></div>
+          <div class="restaurant-text">
+            <a href="https://maps.google.com/?q=Mama%27s+House+Fira+Santorini+Greece" target="_blank" rel="noopener" class="restaurant-name-link">
+              <p class="restaurant-name">Mama's House</p>
+            </a>
+            <a href="https://maps.google.com/?q=Mama%27s+House+Fira+Santorini+Greece" target="_blank" rel="noopener" class="restaurant-website">Find on Maps ↗</a>
+            <p class="restaurant-location">Fira &ensp;·&ensp; Legendary breakfast</p>
+            <p class="restaurant-desc">
+              Santorini's most beloved breakfast institution. Arrive before 9am or face a wait. Greek
+              yogurt with local thyme honey, fresh orange juice, perfect eggs. Simple, honest, and
+              served with the warmth that makes you want to stay all morning. Do not skip this.
+            </p>
+          </div>
         </li>
+
       </ul>
     </div>
   </section>
@@ -1036,7 +1081,7 @@
           <div class="tip-icon">◆</div>
           <div>
             <p class="tip-label">Best time to visit</p>
-            <p class="tip-body">Late May–June or September. Golden light, a fraction of August's crowds, and prices 20–30% lower. July and August are extraordinary but relentlessly hot and crowded — plan accordingly or accept the trade-off.</p>
+            <p class="tip-body">Late May–June or September. Golden light, a fraction of August's crowds, and prices 20–30% lower. July and August are extraordinary but relentlessly hot and crowded — plan accordingly.</p>
           </div>
         </div>
         <div class="tip-item fade-in">
@@ -1057,7 +1102,7 @@
           <div class="tip-icon">◆</div>
           <div>
             <p class="tip-label">Sunsets — the honest advice</p>
-            <p class="tip-body">Oia sunset is iconic but the crowds are punishing — hundreds of people packed onto a narrow cliff path. Imerovigli offers the same 180° view with a fraction of the people. If you do Oia, arrive two hours early and bring a drink.</p>
+            <p class="tip-body">Oia sunset is iconic but the crowds are punishing. Imerovigli offers the same 180° view with a fraction of the people. If you do Oia, arrive two hours early and bring a drink.</p>
           </div>
         </div>
         <div class="tip-item fade-in">
@@ -1084,11 +1129,11 @@
     <p class="footer-tagline">
       "Some islands you visit.<br>Santorini you remember."
     </p>
-    <p class="footer-sub">Greece &ensp;·&ensp; Cyclades &ensp;·&ensp; 36°25′ N, 25°26′ E</p>
+    <p class="footer-sub" style="margin-top:28px;">Greece &ensp;·&ensp; Cyclades &ensp;·&ensp; 36°25′ N, 25°26′ E</p>
   </footer>
 
   <script>
-    // Sticky nav — becomes opaque once hero scrolls out of view
+    // Sticky nav
     const nav  = document.getElementById('navbar');
     const hero = document.getElementById('hero');
     new IntersectionObserver(
@@ -1096,7 +1141,7 @@
       { threshold: 0.05 }
     ).observe(hero);
 
-    // Scroll fade-in for all .fade-in elements
+    // Scroll fade-in
     const fadeObs = new IntersectionObserver(
       (entries) => entries.forEach(e => {
         if (e.isIntersecting) {
